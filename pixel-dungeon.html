@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Dungeon</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+        h1 { color: #f59e0b; margin-bottom: 10px; }
+        #grid { display: grid; grid-template-columns: repeat(10, 40px); gap: 2px; background: #334155; padding: 5px; border-radius: 8px; border: 2px solid #f59e0b; }
+        .cell { width: 40px; height: 40px; background-color: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .btn { background-color: #f59e0b; color: #0f172a; border: none; padding: 10px 20px; font-weight: bold; border-radius: 4px; cursor: pointer; text-decoration: none; margin-top: 15px; }
+        .nav-btn { position: absolute; top: 15px; left: 15px; }
+        .hud { margin: 10px; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="btn nav-btn">← Back Home</a>
+    <h1>PIXEL DUNGEON</h1>
+    <div class="hud">Coins: <span id="coins">0</span> / 5 | Status: <span id="status">Explore!</span></div>
+    <div id="grid"></div>
+    <button class="btn" onclick="initGame()">RESET DUNGEON</button>
+    <p style="margin-top: 10px; color: #94a3b8;">Use <strong>W/A/S/D</strong> or <strong>Arrow Keys</strong> to Move</p>
+
+    <script>
+        const size = 10;
+        let grid = [];
+        let player = { x: 0, y: 0 };
+        let coinsCollected = 0;
+        let gameOver = false;
+
+        function initGame() {
+            grid = Array(size).fill(null).map(() => Array(size).fill(''));
+            player = { x: 0, y: 0 };
+            coinsCollected = 0;
+            gameOver = false;
+            document.getElementById('status').innerText = "Explore!";
+            document.getElementById('coins').innerText = coinsCollected;
+
+            // Place 5 Coins
+            let placed = 0;
+            while(placed < 5) {
+                let rx = Math.floor(Math.random() * size), ry = Math.floor(Math.random() * size);
+                if ((rx !== 0 || ry !== 0) && grid[ry][rx] === '') {
+                    grid[ry][rx] = 'C';
+                    placed++;
+                }
+            }
+
+            // Place 8 Traps
+            placed = 0;
+            while(placed < 8) {
+                let rx = Math.floor(Math.random() * size), ry = Math.floor(Math.random() * size);
+                if ((rx !== 0 || ry !== 0) && grid[ry][rx] === '') {
+                    grid[ry][rx] = 'T';
+                    placed++;
+                }
+            }
+
+            render();
+        }
+
+        function render() {
+            const gridEl = document.getElementById('grid');
+            gridEl.innerHTML = '';
+            for (let r = 0; r < size; r++) {
+                for (let c = 0; c < size; c++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+
+                    if (player.x === c && player.y === r) {
+                        cell.innerText = '🧙‍♂️';
+                    } else if (grid[r][c] === 'C') {
+                        cell.innerText = '🪙';
+                    } else if (grid[r][c] === 'T' && gameOver) {
+                        cell.innerText = '💀';
+                    }
+
+                    gridEl.appendChild(cell);
+                }
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (gameOver) return;
+            let nx = player.x, ny = player.y;
+
+            if (e.key === 'ArrowUp' || e.key === 'w') ny--;
+            if (e.key === 'ArrowDown' || e.key === 's') ny++;
+            if (e.key === 'ArrowLeft' || e.key === 'a') nx--;
+            if (e.key === 'ArrowRight' || e.key === 'd') nx++;
+
+            if (nx >= 0 && nx < size && ny >= 0 && ny < size) {
+                player.x = nx;
+                player.y = ny;
+
+                if (grid[ny][nx] === 'C') {
+                    coinsCollected++;
+                    grid[ny][nx] = '';
+                    document.getElementById('coins').innerText = coinsCollected;
+                    if (coinsCollected === 5) {
+                        document.getElementById('status').innerText = "YOU CLEARED THE DUNGEON!";
+                        gameOver = true;
+                    }
+                } else if (grid[ny][nx] === 'T') {
+                    document.getElementById('status').innerText = "TRAP TRIGGERED! GAME OVER.";
+                    gameOver = true;
+                }
+
+                render();
+            }
+        });
+
+        initGame();
+    </script>
+</body>
+</html>

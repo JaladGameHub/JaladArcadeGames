@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JaladGameHub - Free Browser Games</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --text-color: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #334155;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(180deg, var(--card-bg) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-banner {
+            width: 100%;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cyber-bg { background: linear-gradient(135deg, #0284c7, #38bdf8); color: #0f172a; }
+        .space-bg { background: linear-gradient(135deg, #4c1d95, #f43f5e); color: #ffffff; }
+        .puzzle-bg { background: linear-gradient(135deg, #059669, #10b981); color: #ffffff; }
+        .dungeon-bg { background: linear-gradient(135deg, #d97706, #f59e0b); color: #0f172a; }
+
+        .game-info {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        .play-btn {
+            display: inline-block;
+            text-align: center;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .play-btn:hover {
+            background-color: #0284c7;
+            color: #ffffff;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid #334155;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">JaladGameHub</div>
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Free Online Games</h1>
+        <p>Play instant browser games with zero downloads required.</p>
+    </section>
+
+    <div class="container">
+        <div class="games-grid">
+
+            <!-- Cyber Runner -->
+            <div class="game-card" onclick="window.location.href='cyber-runner.html';">
+                <div class="card-banner cyber-bg">Runner</div>
+                <div class="game-info">
+                    <h2 class="game-title">Cyber Runner</h2>
+                    <p class="game-desc">Jump over obstacles and survive as long as you can in this endless runner.</p>
+                    <a href="cyber-runner.html" class="play-btn">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Space Battle -->
+            <div class="game-card" onclick="window.location.href='space-battle.html';">
+                <div class="card-banner space-bg">Battle</div>
+                <div class="game-info">
+                    <h2 class="game-title">Space Battle</h2>
+                    <p class="game-desc">Shoot down invading alien ships and defend your spaceship.</p>
+                    <a href="space-battle.html" class="play-btn">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Puzzle Quest -->
+            <div class="game-card" onclick="window.location.href='puzzle-quest.html';">
+                <div class="card-banner puzzle-bg">Puzzle</div>
+                <div class="game-info">
+                    <h2 class="game-title">Puzzle Quest</h2>
+                    <p class="game-desc">Classic Match-3 puzzle game. Swap tiles to match 3 or more of the same color.</p>
+                    <a href="puzzle-quest.html" class="play-btn">Play Now</a>
+                </div>
+            </div>
+
+            <!-- Pixel Dungeon -->
+            <div class="game-card" onclick="window.location.href='pixel-dungeon.html';">
+                <div class="card-banner dungeon-bg">Dungeon</div>
+                <div class="game-info">
+                    <h2 class="game-title">Pixel Dungeon</h2>
+                    <p class="game-desc">Navigate through a grid dungeon, gather gold coins, and avoid enemy traps.</p>
+                    <a href="pixel-dungeon.html" class="play-btn">Play Now</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 JaladGameHub. All rights reserved.
+    </footer>
+
+</body>
+</html>
